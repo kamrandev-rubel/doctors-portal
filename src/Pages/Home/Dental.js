@@ -3,10 +3,10 @@ import dental from '../../assets/images/treatment.png'
 
 const Dental = () => {
     return (
-        <div className="container mx-auto hero min-h-screen mb-40">
+        <div className="container mx-auto hero min-h-screen mb-20 lg:mb-40">
             <div className="hero-content flex-col lg:flex-row">
                 <div className='basis-1/2'>
-                    <img src={dental} alt='' className=' lg:max-w-[458px] lg:max-h[576px] ml-auto rounded-lg shadow-2xl' />
+                    <img src={dental} alt='' className=' lg:max-w-[458px] lg:max-h[576px] ml-auto rounded-lg shadow-2xl mb-9' />
                 </div>
                 <div className='basis-1/2 lg:p-20'>
                     <h1 className="xs:text-5xl text-2xl font-bold">Exceptional Dental Care, on Your Terms</h1>

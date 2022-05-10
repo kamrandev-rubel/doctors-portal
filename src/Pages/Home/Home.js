@@ -8,7 +8,7 @@ import Testimonials from './Testimonials';
 
 const Home = () => {
     return (
-        <div className='w-full'>
+        <div className=''>
             <Banner />
             <Info />
             <Services />
