@@ -3,7 +3,7 @@ import React from 'react';
 const Service = ({ service }) => {
     const { img, name } = service;
     return (
-        <div className="card bg-base-100 shadow-[3px_4px_10px_2px_rgba(0, 0, 0, 0.05)] rounded-2xl">
+        <div className="card bg-base-100 drop-shadow-lg rounded-2xl">
             <figure className="px-10 pt-10">
                 <img src={img} alt="Shoes" className="rounded-xl" />
             </figure>
