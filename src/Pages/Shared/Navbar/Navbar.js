@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { HiMenuAlt1 } from 'react-icons/hi'
 
 const Navbar = () => {
     return (
@@ -7,7 +8,7 @@ const Navbar = () => {
             <div class="lg:navbar-start w-full justify-between">
                 <div class="dropdown ">
                     <label tabindex="0" class="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                        <HiMenuAlt1 className='text-3xl' />
                     </label>
                     <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li><Link to=''>Item 1</Link></li>
@@ -24,7 +25,7 @@ const Navbar = () => {
                         <li><Link to=''>Item 3</Link></li>
                     </ul>
                 </div>
-                <Link to='' class="btn btn-ghost normal-case text-xl">daisyUI</Link>
+                <Link to='' class="btn btn-ghost normal-case text-xl">Doctors Protal</Link>
             </div>
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal p-0">
