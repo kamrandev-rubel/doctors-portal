@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import { HiMenuAlt1 } from 'react-icons/hi'
 
 const Navbar = () => {
+    const menuItems = <>
+        <li><Link to='/home' className='hover:bg-accent hover:text-[#D4D9E3]'>Home</Link></li>
+        <li><Link to='/about' className='hover:bg-accent hover:text-[#D4D9E3]'>About</Link></li>
+        <li><Link to='/appointment' className='hover:bg-accent hover:text-[#D4D9E3]'>Appointment</Link></li>
+        <li><Link to='/reviews' className='hover:bg-accent hover:text-[#D4D9E3]'>Reviews</Link></li>
+        <li><Link to='/contactUs' className='hover:bg-accent hover:text-[#D4D9E3]'>Contact Us</Link></li>
+        <li><Link to='/login' className='hover:bg-accent hover:text-[#D4D9E3]'>Login</Link></li>
+    </>
     return (
         <div class="navbar bg-base-100 justify-between container mx-auto">
             <div class="lg:navbar-start w-full justify-between">
@@ -11,36 +19,14 @@ const Navbar = () => {
                         <HiMenuAlt1 className='text-3xl' />
                     </label>
                     <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><Link to=''>Item 1</Link></li>
-                        <li tabindex="0">
-                            <Link to='' class="justify-between">
-                                Parent
-                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
-                            </Link>
-                            <ul class="p-2">
-                                <li><Link to=''>Submenu 1</Link></li>
-                                <li><Link to=''>Submenu 2</Link></li>
-                            </ul>
-                        </li>
-                        <li><Link to=''>Item 3</Link></li>
+                        {menuItems}
                     </ul>
                 </div>
-                <Link to='' class="btn btn-ghost normal-case text-xl">Doctors Protal</Link>
+                <Link to='' class="btn btn-ghost normal-case text-xl hover:bg-accent hover:text-[#D4D9E3]">Doctors Protal</Link>
             </div>
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal p-0">
-                    <li><Link to=''>Item 1</Link></li>
-                    <li tabindex="0">
-                        <Link to=''>
-                            Parent
-                            <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
-                        </Link>
-                        <ul class="p-2">
-                            <li><Link to=''>Submenu 1</Link></li>
-                            <li><Link to=''>Submenu 2</Link></li>
-                        </ul>
-                    </li>
-                    <li><Link to=''>Item 3</Link></li>
+                    {menuItems}
                 </ul>
             </div>
             {/* <div class="navbar-end">
