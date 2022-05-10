@@ -29,9 +29,6 @@ const Navbar = () => {
                     {menuItems}
                 </ul>
             </div>
-            {/* <div class="navbar-end">
-                <Link to='' class="btn">Get started</Link>
-            </div> */}
         </div>
     );
 };
