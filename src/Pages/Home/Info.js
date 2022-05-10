@@ -5,7 +5,7 @@ import { FiPhoneCall } from 'react-icons/fi'
 
 const Info = () => {
     return (
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-5'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-5 mb-32'>
             <div className="card lg:card-side justify-center items-center shadow-xl lg:h-48 p-5 text-white rounded-2xl bg-gradient-to-r from-secondary to-primary">
                 <figure>
                     <BiTime className='w-20 h-20 mr-5' />
