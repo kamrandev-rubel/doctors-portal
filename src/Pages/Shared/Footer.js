@@ -8,7 +8,7 @@ const Footer = () => {
             style={{
                 backgroundImage: `url(${footer})`,
                 backgroundSize: 'cover',
-            }}>
+            }} className=' mb-11' >
             <div className="footer p-10 text-base-content py-24">
                 <div>
                     <span className="footer-title">Services</span>
@@ -40,7 +40,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className='text-center mb-11'>
+            <div className='text-center'>
                 <h2 className='text-accent'>Copyright {new Date().getFullYear()} All Rights Reserved</h2>
             </div>
         </footer>

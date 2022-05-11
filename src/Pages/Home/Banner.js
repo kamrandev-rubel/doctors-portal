@@ -3,12 +3,12 @@ import chair from '../../assets/images/chair.png'
 import chairBG from '../../assets/images/bg.png'
 
 const Banner = () => {
-    const imageBG = {
-        backgroundImage: `url(${chairBG})`,
-        backgroundSize: '100%'
-    }
+
     return (
-        <div style={imageBG} className="md:container px-5 mb-16 mx-auto hero min-h-screen">
+        <div style={{
+            backgroundImage: `url(${chairBG})`,
+            backgroundSize: '100%'
+        }} className="md:container px-5 mb-16 mx-auto hero min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <img src={chair} alt='' className='lg:max-w-[594px] rounded-lg shadow-2xl mb-16' />
                 <div>
