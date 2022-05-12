@@ -28,10 +28,11 @@ module.exports = {
       {
         light: {
           primary: "#0FCFEC",
+          "primary-content": "#ddd",
           secondary: "#19D3AE",
           "secondary-content": "#ffffff",
           accent: "#3A4256",
-          "accent-content": "#163835",
+          "accent-content": "#ffffff",
           neutral: "#3d4451",
           "neutral-content": "#ffffff",
           "base-100": "#ffffff",
