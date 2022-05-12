@@ -4,8 +4,12 @@ import chairBG from '../../assets/images/bg.png'
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
-const AppointmentBanner = ({ date, setDate }) => {
-    const css = `
+const chairBg = {
+    backgroundImage: `url(${chairBG})`,
+    backgroundSize: '100%',
+}
+
+const css = `
     .my-today { 
         font-weight: bold;
         font-size: 140%;
@@ -19,12 +23,11 @@ const AppointmentBanner = ({ date, setDate }) => {
         border: 2px solid #0FCFEC;
     }
 `;
+const AppointmentBanner = ({ date, setDate }) => {
+
 
     return (
-        <div style={{
-            backgroundImage: `url(${chairBG})`,
-            backgroundSize: '100%'
-        }} className="md:container px-5 mb-16 mx-auto hero min-h-screen">
+        <div style={chairBg} className="md:container px-5 mb-16 mx-auto hero min-h-screen">
             <div className="hero-content flex-col justify-around w-full lg:flex-row-reverse">
                 <img src={chair} alt='' className='lg:max-w-[594px] rounded-lg shadow-2xl mb-16' />
                 <div>

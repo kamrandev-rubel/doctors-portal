@@ -1,9 +1,11 @@
 import { format } from 'date-fns';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import BookingModal from './BookingModal';
 
 const AvailableAppointment = ({ date }) => {
     const [services, setServices] = useState([]);
+    const [treatment, setTreatment] = useState(null)
     useEffect(() => {
         axios.get('services.json')
             .then((response => {
@@ -18,18 +20,26 @@ const AvailableAppointment = ({ date }) => {
                     services.map(service => {
                         const { name, slots } = service;
                         return (
-                            <div key={service._id} className="card bg-base-100 drop-shadow-lg">
+                            <div key={service._id} className="card bg-base-100 
+                            drop-shadow-lg">
                                 <div className="card-body text-center">
                                     <h2 className="card-title text-primary text-xl font-[600] mx-auto">{name}</h2>
                                     <h3 className='text-sm'>
-                                        {slots[0]}
-                                        {slots.length <= 0
-                                            &&
+
+                                        {slots.length > 0 ?
+                                            <>{slots[0]}</>
+                                            :
                                             <span className='text-red-500 font-medium'>Try Another Date</span>}
                                     </h3>
                                     <p className='text-xs mb-3'>{slots.length} {slots.length ? 'SPACES' : 'SPACE'} AVAILABLE</p>
                                     <div className="card-actions justify-center">
-                                        <button disabled={!slots.length} className="btn btn-primary text-sm">Book Appointment</button>
+                                        <label
+                                            onClick={() => setTreatment(service)}
+                                            disabled={!slots.length}
+                                            htmlFor="booking-modal" className="btn btn-primary text-base-100 text-sm"
+                                        >
+                                            Book Appointment
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -37,6 +47,11 @@ const AvailableAppointment = ({ date }) => {
                     })
                 }
             </div>
+            {treatment && <BookingModal
+                treatment={treatment}
+                date={date}
+                setTreatment={setTreatment}
+            />}
         </div>
     );
 };

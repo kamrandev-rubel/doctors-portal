@@ -45,7 +45,7 @@ const Testimonials = () => {
                         reviews.map(review => {
                             const { name, img, city, description } = review;
                             return (
-                                <div className="card bg-base-100 drop-shadow-xl">
+                                <div key={review._id} className="card bg-base-100 drop-shadow-xl">
                                     <div className="card-body">
                                         <p>{description}</p>
                                     </div>
