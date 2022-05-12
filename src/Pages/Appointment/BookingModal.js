@@ -18,14 +18,14 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
                 <div className="modal-box  max-w-[511px]">
                     <h3 className="font-bold text-lg mb-12">{treatment.name}</h3>
                     <form onSubmit={handleBooking}>
-                        <input type="text" readOnly value={format(date, 'PP')} required className="input input-bordered w-full h-12 mb-5 text-base" />
-                        <select name='time' className="select select-bordered font-normal w-full h-12 mb-5 text-base">
+                        <input type="text" readOnly value={format(date, 'PP')} required className="input text-primary-content input-primary  input-bordered w-full h-12 mb-5 text-base" />
+                        <select name='time' className="select text-primary-content select-bordered font-normal w-full h-12 mb-5 select-primary  text-base">
                             {slots.map(slot => <option>{slot}</option>)}
                         </select>
-                        <input type="text" placeholder="Full Name" required className="input input-bordered w-full h-12 mb-5 text-base" />
-                        <input type="number" name='phone' required placeholder="Phone Number" className="input input-bordered w-full h-12 mb-5 text-base" />
-                        <input type="email" name='email' placeholder="Email" required className="input input-bordered w-full h-12 mb-5 text-base" />
-                        <input type="submit" value="SUBMIT" className="input input-bordered w-full h-12 bg-accent text-base text-base-300" />
+                        <input type="text" placeholder="Full Name" required className="input text-primary-content input-bordered input-primary  w-full h-12 mb-5 text-base" />
+                        <input type="number" name='phone' required placeholder="Phone Number" className="input text-primary-content input-primary input-bordered w-full h-12 mb-5 text-base" />
+                        <input type="email" name='email' placeholder="Email" required className="input text-primary-content input-bordered input-primary w-full h-12 mb-5 text-base" />
+                        <input type="submit" value="SUBMIT" className="input text-primary-content input-bordered w-full h-12 bg-primary text-base text-base-300" />
                     </form>
                     {/* <!-- The button to close modal --> */}
                     <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-3 top-3">✕</label>

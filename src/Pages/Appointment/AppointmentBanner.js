@@ -46,7 +46,7 @@ const AppointmentBanner = ({ date, setDate }) => {
                             selected: 'my-selected',
                             today: 'my-today',
                         }}
-                        className='bg-white rounded-2xl'
+                        className='shadow-2xl rounded-2xl'
                     />
                 </div>
             </div>
