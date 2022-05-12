@@ -7,7 +7,7 @@ const AvailableAppointment = ({ date }) => {
     const [services, setServices] = useState([]);
     const [treatment, setTreatment] = useState(null)
     useEffect(() => {
-        axios.get('services.json')
+        axios.get('http://localhost:5000/services')
             .then((response => {
                 setServices(response.data)
             }))
@@ -36,7 +36,7 @@ const AvailableAppointment = ({ date }) => {
                                         <label
                                             onClick={() => setTreatment(service)}
                                             disabled={!slots.length}
-                                            htmlFor="booking-modal" className="btn btn-primary text-base-100 text-sm"
+                                            htmlFor="booking-modal" className="btn btn-sm btn-primary text-base-100 text-sm bg-gradient-to-r from-secondary to-primary"
                                         >
                                             Book Appointment
                                         </label>
