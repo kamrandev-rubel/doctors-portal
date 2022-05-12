@@ -8,6 +8,7 @@ const Login = () => {
             <div className=" flex justify-center items-center h-screen">
                 <div className="card w-full max-w-[385px] shadow-2xl bg-base-100">
                     <div className="card-body">
+                        <h2 className='text-center text-xl font-medium'>Login</h2>
                         <form>
                             <div className="form-control">
                                 <label htmlFor='email' className="label">
@@ -36,7 +37,7 @@ const Login = () => {
                             </p>
                             <div className="divider">OR</div>
                             <button
-                                className="btn btn-outline btn-primary w-full   hover:text-primary-content">
+                                className="btn btn-outline btn-accent w-full">
                                 <BsGoogle className='text-2xl mr-2' />
                                 CONTINUE WITH GOOGLE
                             </button>
