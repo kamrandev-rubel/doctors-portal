@@ -10,16 +10,16 @@ const Login = () => {
                     <div className="card-body">
                         <form>
                             <div className="form-control">
-                                <label className="label">
+                                <label htmlFor='email' className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="text" placeholder="email" className="input input-bordered" />
+                                <input type="email" name='email' id='email' placeholder="Email" className="input input-bordered" />
                             </div>
                             <div className="form-control">
-                                <label className="label">
+                                <label htmlFor='password' className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="text" placeholder="password" className="input input-bordered" />
+                                <input type="password" name='password' id='password' placeholder="Password" className="input input-bordered" />
                                 <label className="label">
                                     <Link to="#" className="label-text-alt link link-hover">Forgot password?</Link>
                                 </label>
