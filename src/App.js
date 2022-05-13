@@ -4,6 +4,7 @@ import './App.css';
 import Appointment from './Pages/Appointment/Appointment';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
+import PrivetRoute from './Pages/Login/PrivetRoute';
 import SignUp from './Pages/Login/SignUp';
 import Footer from './Pages/Shared/Footer';
 import Navbar from './Pages/Shared/Navbar';
@@ -17,7 +18,11 @@ function App() {
       <Navbar theme={theme} setTheme={setTheme} />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/appointment' element={<Appointment />} />
+        <Route path='/appointment' element={
+          <PrivetRoute>
+            <Appointment />
+          </PrivetRoute>
+        } />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
       </Routes>

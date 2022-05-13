@@ -18,7 +18,7 @@ const Navbar = ({ theme, setTheme }) => {
         <li><NavLink to='/contactUs' >Contact Us</NavLink></li>
         {
             user ?
-                <li><NavLink to='' onClick={handleLogout} >Logout</NavLink></li>
+                <li><Link to='' onClick={handleLogout} >Logout</Link></li>
                 :
                 <li><NavLink to='/login' >Login</NavLink></li>
         }
