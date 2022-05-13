@@ -14,13 +14,23 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
-    let signinLoading;
+    let googleSigninLoading;
+    let emailSigninLoading;
     let signinError;
     if (error || gError) {
-        signinError = <>{error.message}</>
+        signinError = <>{error.code || gError.code}</>
     }
     if (gLoading || loading) {
-        signinLoading = <><button class="btn loading text-white ">Loading</button></>
+        if (loading) {
+            emailSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
+            return
+        }
+        else {
+            googleSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
+        }
+    }
+    if (user || gUser) {
+        console.log(user || gUser)
     }
     const onSubmit = data => {
         const { email, password } = data;
@@ -82,13 +92,13 @@ const Login = () => {
                                 <label className="ml-2 font-medium">
                                     {errors.password?.type === 'required' && <span className='text-xs text-red-600'>{errors.password.message}</span>}
                                     {errors.password?.type === 'pattern' && <span className='text-xs text-red-600'>{errors.password.message}</span>}
-                                    <p className='text-red-600'>{signinError}</p>
+                                    <p className='text-red-600 text-xs'>{signinError}</p>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
                                 {
-                                    signinLoading ?
-                                        signinLoading
+                                    emailSigninLoading ?
+                                        emailSigninLoading
                                         :
                                         <input type="submit" className='btn btn-accent accent-content text-base-300 ' value="LOGIN" />
                                 }
@@ -101,12 +111,17 @@ const Login = () => {
                                 </Link>
                             </p>
                             <div className="divider">OR</div>
-                            <button
-                                onClick={() => signInWithGoogle()}
-                                className="btn btn-outline btn-accent w-full">
-                                <BsGoogle className='text-2xl mr-2' />
-                                CONTINUE WITH GOOGLE
-                            </button>
+                            {
+                                googleSigninLoading ?
+                                    googleSigninLoading
+                                    :
+                                    <button
+                                        onClick={() => signInWithGoogle()}
+                                        className="btn btn-outline btn-accent w-full">
+                                        <BsGoogle className='text-2xl mr-2' />
+                                        CONTINUE WITH GOOGLE
+                                    </button>
+                            }
                         </div>
                     </div>
                 </div>

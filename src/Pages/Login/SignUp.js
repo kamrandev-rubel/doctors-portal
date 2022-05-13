@@ -1,11 +1,13 @@
 import React from 'react';
 import { BsGoogle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { useSignInWithGoogle, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle, useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
+import { async } from '@firebase/util';
 
 const SignUp = () => {
+    const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [
@@ -14,27 +16,36 @@ const SignUp = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
-    let signinLoading;
+
+
+    let googleSigninLoading;
+    let emailSigninLoading;
     let signinError;
     if (error || gError) {
-        signinError = <>{error.message}</>
+        signinError = <>{error.code || gError.code}</>
     }
     if (gLoading || loading) {
-        signinLoading = <><button class="btn loading text-white ">Loading</button></>
+        if (loading) {
+            emailSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
+        }
+        else {
+            googleSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
+        }
     }
     if (user || gUser) {
-        console.log(user)
+        console.log(user || gUser)
     }
-    const onSubmit = data => {
-        const { email, password } = data;
-        createUserWithEmailAndPassword(email, password)
+    const onSubmit = async data => {
+        const { name, email, password } = data;
+        await createUserWithEmailAndPassword(email, password)
+        await updateProfile({ displayName: name });
     };
     return (
         <div>
             <div className=" flex justify-center items-center h-screen">
                 <div className="card w-full max-w-[385px] shadow-2xl bg-base-100">
                     <div className="card-body">
-                        <h2 className='text-center text-xl font-medium'>Login</h2>
+                        <h2 className='text-center text-xl font-medium'>Sign Up</h2>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="form-control">
                                 <label htmlFor='name' className="label">
@@ -109,13 +120,13 @@ const SignUp = () => {
                                 <label className="ml-2 font-medium">
                                     {errors.password?.type === 'required' && <span className='text-xs text-red-600'>{errors.password.message}</span>}
                                     {errors.password?.type === 'pattern' && <span className='text-xs text-red-600'>{errors.password.message}</span>}
-                                    <p className='text-red-600'>{signinError}</p>
+                                    <p className='text-red-600 text-xs'>{signinError}</p>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
                                 {
-                                    signinLoading ?
-                                        signinLoading
+                                    emailSigninLoading ?
+                                        emailSigninLoading
                                         :
                                         <input type="submit" className='btn btn-accent accent-content text-base-300 ' value="LOGIN" />
                                 }
@@ -123,17 +134,22 @@ const SignUp = () => {
                         </form>
                         <div className='mt-1'>
                             <p className='text-xs text-center'>New to Doctors Portal?
-                                <Link to='/signup' className='text-primary ml-1 hover:underline'>
-                                    Create new account
+                                <Link to='/login' className='text-primary ml-1 hover:underline'>
+                                    Login
                                 </Link>
                             </p>
                             <div className="divider">OR</div>
-                            <button
-                                onClick={() => signInWithGoogle()}
-                                className="btn btn-outline btn-accent w-full">
-                                <BsGoogle className='text-2xl mr-2' />
-                                CONTINUE WITH GOOGLE
-                            </button>
+                            {
+                                googleSigninLoading ?
+                                    googleSigninLoading
+                                    :
+                                    <button
+                                        onClick={() => signInWithGoogle()}
+                                        className="btn btn-outline btn-accent w-full">
+                                        <BsGoogle className='text-2xl mr-2' />
+                                        CONTINUE WITH GOOGLE
+                                    </button>
+                            }
                         </div>
                     </div>
                 </div>
