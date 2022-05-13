@@ -23,7 +23,6 @@ const Login = () => {
     if (gLoading || loading) {
         if (loading) {
             emailSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
-            return
         }
         else {
             googleSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>

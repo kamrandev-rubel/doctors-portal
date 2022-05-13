@@ -1,15 +1,27 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { HiMenuAlt1 } from 'react-icons/hi'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import { signOut } from 'firebase/auth';
 
 const Navbar = ({ theme, setTheme }) => {
+    const [user] = useAuthState(auth)
+    const handleLogout = () => {
+        signOut(auth);
+    }
     const menuItems = <>
         <li><NavLink to='/' >Home</NavLink></li>
         <li><NavLink to='/about' >About</NavLink></li>
         <li><NavLink to='/appointment' >Appointment</NavLink></li>
         <li><NavLink to='/reviews' >Reviews</NavLink></li>
         <li><NavLink to='/contactUs' >Contact Us</NavLink></li>
-        <li><NavLink to='/login' >Login</NavLink></li>
+        {
+            user ?
+                <li><NavLink to='' onClick={handleLogout} >Logout</NavLink></li>
+                :
+                <li><NavLink to='/login' >Login</NavLink></li>
+        }
         <li>
             <label className="swap swap-rotate">
 
