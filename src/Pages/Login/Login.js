@@ -15,6 +15,10 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
     let signinLoading;
+    let signinError;
+    if (error || gError) {
+        signinError = <>{error.message}</>
+    }
     if (gLoading || loading) {
         signinLoading = <><button class="btn loading text-white ">Loading</button></>
     }
@@ -78,6 +82,7 @@ const Login = () => {
                                 <label className="ml-2 font-medium">
                                     {errors.password?.type === 'required' && <span className='text-xs text-red-600'>{errors.password.message}</span>}
                                     {errors.password?.type === 'pattern' && <span className='text-xs text-red-600'>{errors.password.message}</span>}
+                                    <p className='text-red-600'>{signinError}</p>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
