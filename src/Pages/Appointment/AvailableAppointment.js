@@ -2,19 +2,39 @@ import { format } from 'date-fns';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BookingModal from './BookingModal';
+import { useQuery } from 'react-query'
+import Loading from '../Shared/Loading';
+import { async } from '@firebase/util';
 
 const AvailableAppointment = ({ date }) => {
-    const [services, setServices] = useState([]);
+    // const [services, setServices] = useState([]);
     const [treatment, setTreatment] = useState(null)
-    useEffect(() => {
-        axios.get('http://localhost:5000/services')
-            .then((response => {
-                setServices(response.data)
-            }))
-    }, [])
+    const formattedDate = format(date, 'PP')
+    // useEffect(() => {
+    //     axios.get(`http://localhost:5000/available?date=${formattedDate}`)
+    //         .then((response => {
+    //             setServices(response.data)
+    //         }))
+    // }, [formattedDate])
+
+    const { data: services, isLoading, error, refetch } = useQuery(['available', formattedDate], () =>
+
+        fetch(`http://localhost:5000/available?date=${formattedDate}`).then(res =>
+
+            res.json()
+
+        )
+
+    )
+
+
+    // console.log(data)
+    if (isLoading) {
+        return <Loading />
+    }
     return (
         <div className='px-5 mb-16'>
-            <h4 className='text-secondary text-xl text-center font-bold mb-24'> Available Appointments on {format(date, 'PP')}</h4>
+            <h4 className='text-secondary text-xl text-center font-bold mb-24'> Available Appointments on {format(date, 'PP').toString()}</h4>
             <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-9'>
                 {
                     services.map(service => {
@@ -36,7 +56,7 @@ const AvailableAppointment = ({ date }) => {
                                         <label
                                             onClick={() => setTreatment(service)}
                                             disabled={!slots.length}
-                                            htmlFor="booking-modal" className="btn btn-sm btn-primary text-primary-content text-sm bg-gradient-to-r text-white from-secondary to-primary"
+                                            htmlFor="booking-modal" className="btn btn-sm btn-primary text-sm bg-gradient-to-r text-white from-secondary to-primary"
                                         >
                                             Book Appointment
                                         </label>
@@ -51,6 +71,7 @@ const AvailableAppointment = ({ date }) => {
                 treatment={treatment}
                 date={date}
                 setTreatment={setTreatment}
+                refetch={refetch}
             />}
         </div>
     );

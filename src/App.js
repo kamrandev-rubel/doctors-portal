@@ -8,6 +8,8 @@ import PrivetRoute from './Pages/Login/PrivetRoute';
 import SignUp from './Pages/Login/SignUp';
 import Footer from './Pages/Shared/Footer';
 import Navbar from './Pages/Shared/Navbar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [theme, setTheme] = useState(false)
@@ -27,6 +29,7 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
       </Routes>
       <Footer />
+      <ToastContainer />
     </div>
   );
 }
