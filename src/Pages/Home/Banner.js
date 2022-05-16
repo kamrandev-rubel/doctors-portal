@@ -7,8 +7,9 @@ const Banner = () => {
     return (
         <div style={{
             backgroundImage: `url(${chairBG})`,
-            backgroundSize: '100%'
-        }} className="md:container px-5 mb-16 mx-auto hero min-h-screen">
+            backgroundSize: '100%',
+            backgroundRepeat: 'no-repeat'
+        }} className="md:container px-5 mb-16 mx-auto hero md:min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <img src={chair} alt='' className='lg:max-w-[594px] rounded-lg shadow-2xl mb-16' />
                 <div>

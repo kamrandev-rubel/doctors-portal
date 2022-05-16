@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { HiMenuAlt1 } from 'react-icons/hi'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -7,6 +7,7 @@ import { signOut } from 'firebase/auth';
 
 const Navbar = ({ theme, setTheme }) => {
     const [user] = useAuthState(auth)
+    const navigate = useNavigate()
     const handleLogout = () => {
         signOut(auth);
     }
@@ -16,6 +17,13 @@ const Navbar = ({ theme, setTheme }) => {
         <li><NavLink to='/appointment' >Appointment</NavLink></li>
         <li><NavLink to='/reviews' >Reviews</NavLink></li>
         <li><NavLink to='/contactUs' >Contact Us</NavLink></li>
+        {
+            user && <li>
+                <NavLink to='/dashboard' className='hidden lg:block' >Dashboard</NavLink>
+
+                <label onClick={() => navigate('/dashboard')} htmlFor="dashboard-drawer" class="lg:hidden">Open drawer</label>
+            </li>
+        }
         {
             user ?
                 <li><Link to='' onClick={handleLogout} >Logout</Link></li>

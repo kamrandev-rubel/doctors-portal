@@ -7,6 +7,7 @@ import 'react-day-picker/dist/style.css';
 const chairBg = {
     backgroundImage: `url(${chairBG})`,
     backgroundSize: '100%',
+    backgroundRepeat: 'no-repeat'
 }
 
 const css = `
@@ -27,7 +28,7 @@ const AppointmentBanner = ({ date, setDate }) => {
 
 
     return (
-        <div style={chairBg} className="md:container px-5 mb-16 mx-auto hero min-h-screen">
+        <div style={chairBg} className="md:container px-5 mb-16 mx-auto hero md:min-h-screen">
             <div className="hero-content flex-col justify-around w-full lg:flex-row-reverse">
                 <img src={chair} alt='' className='lg:max-w-[594px] rounded-lg shadow-2xl mb-16' />
                 <div>

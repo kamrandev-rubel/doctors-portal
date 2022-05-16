@@ -10,6 +10,9 @@ import Footer from './Pages/Shared/Footer';
 import Navbar from './Pages/Shared/Navbar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import MyAppointment from './Pages/Dashboard/MyAppointment';
+import MyReview from './Pages/Dashboard/MyReview';
 
 function App() {
   const [theme, setTheme] = useState(false)
@@ -25,6 +28,14 @@ function App() {
             <Appointment />
           </PrivetRoute>
         } />
+        <Route path='/dashboard' element={
+          <PrivetRoute>
+            <Dashboard />
+          </PrivetRoute>
+        } >
+          <Route index element={<MyAppointment />} />
+          <Route path='/dashboard/myReview' element={<MyReview />} />
+        </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
       </Routes>

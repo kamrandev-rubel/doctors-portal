@@ -26,7 +26,7 @@ const Login = () => {
     let emailSigninLoading;
     let signinError;
     if (error || gError) {
-        signinError = <>{error.code || gError.code}</>
+        // signinError = <>{error.message || gError.message}</>
     }
     if (gLoading || loading) {
         if (loading) {
