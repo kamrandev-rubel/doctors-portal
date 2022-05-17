@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BsGoogle } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSignInWithGoogle, useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ const SignUp = () => {
     const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const navigate = useNavigate()
     const [
         createUserWithEmailAndPassword,
         user,
@@ -28,9 +29,11 @@ const SignUp = () => {
             googleSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
         }
     }
-    if (token) {
-        // console.log(user || gUser)
-    }
+    useEffect(() => {
+        if (token) {
+            navigate('/')
+        }
+    }, [token, navigate])
     const onSubmit = async data => {
         const { name, email, password } = data;
         await createUserWithEmailAndPassword(email, password)

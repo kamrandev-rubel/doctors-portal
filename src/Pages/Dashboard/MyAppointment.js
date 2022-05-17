@@ -1,11 +1,14 @@
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 
 const MyAppointment = () => {
     const [appointment, setAppointment] = useState([]);
     const [user] = useAuthState(auth);
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get(`http://localhost:5000/booking?patient=${user?.email}`, {
@@ -17,7 +20,14 @@ const MyAppointment = () => {
             .then((response) => {
                 setAppointment(response.data)
             })
-    }, [user])
+            .catch((error) => {
+                if (error.response.status === 401 || error.response.status === 403) {
+                    signOut(auth)
+                    localStorage.removeItem('accessToken')
+                    return navigate('/login')
+                }
+            })
+    }, [user, navigate])
     return (
         <div className="overflow-x-auto w-full">
             <table className="table w-full">

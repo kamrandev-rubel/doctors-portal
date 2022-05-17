@@ -13,11 +13,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import MyAppointment from './Pages/Dashboard/MyAppointment';
 import MyReview from './Pages/Dashboard/MyReview';
+import MyHistory from './Pages/Dashboard/MyHistory';
+import AllUsers from './Pages/Dashboard/AllUsers';
 
 function App() {
   const [theme, setTheme] = useState(false)
 
-  console.log()
   return (
     <div data-theme={`${theme ? 'dark' : 'light'}`}>
       <Navbar theme={theme} setTheme={setTheme} />
@@ -35,6 +36,8 @@ function App() {
         } >
           <Route index element={<MyAppointment />} />
           <Route path='/dashboard/myReview' element={<MyReview />} />
+          <Route path='/dashboard/myHistory' element={<MyHistory />} />
+          <Route path='/dashboard/allUsers' element={<AllUsers />} />
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />

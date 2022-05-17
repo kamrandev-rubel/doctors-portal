@@ -5,7 +5,7 @@ const Dashboard = () => {
     return (
         <div className="drawer drawer-mobile">
             <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center">
+            <div className="drawer-content flex flex-col items-center">
                 {/* <!-- Page content here --> */}
                 <h1 className='text-5xl text-primary my-10 font-bold'>Wellcome to your Dashboard</h1>
                 <Outlet />
@@ -16,8 +16,9 @@ const Dashboard = () => {
                     {/* <!-- Sidebar content here --> */}
                     <li><Link to='/dashboard' className='mb-3'>My Appointment</Link></li>
                     <li><Link to='/dashboard/myReview'>My Review</Link></li>
+                    <li><Link to='/dashboard/myHistory'>My History</Link></li>
+                    <li><Link to='/dashboard/allUsers'>All Users</Link></li>
                 </ul>
-
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BsGoogle } from 'react-icons/bs';
 import { useSignInWithGoogle, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -40,9 +40,11 @@ const Login = () => {
             googleSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
         }
     }
-    if (token) {
-        // console.log(user || gUser)
-    }
+    useEffect(() => {
+        if (token) {
+            navigate('/')
+        }
+    }, [token, navigate])
     const onSubmit = data => {
         const { email, password } = data;
         signInWithEmailAndPassword(email, password)

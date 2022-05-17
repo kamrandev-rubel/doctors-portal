@@ -22,7 +22,7 @@ const Navbar = ({ theme, setTheme }) => {
             user && <li>
                 <NavLink to='/dashboard' className='hidden lg:block' >Dashboard</NavLink>
 
-                <label onClick={() => navigate('/dashboard')} htmlFor="dashboard-drawer" className="lg:hidden">Open drawer</label>
+                <label onClick={() => navigate('/dashboard')} htmlFor="dashboard-drawer" className="lg:hidden">Dashboard</label>
             </li>
         }
         {
