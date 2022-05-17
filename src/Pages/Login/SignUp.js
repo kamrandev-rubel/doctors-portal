@@ -38,7 +38,7 @@ const SignUp = () => {
     };
     return (
         <div>
-            <div className=" flex justify-center items-center h-screen">
+            <div className=" flex justify-center items-center min-h-screen">
                 <div className="card w-full max-w-[385px] shadow-2xl bg-base-100">
                     <div className="card-body">
                         <h2 className='text-center text-xl font-medium'>Sign Up</h2>
@@ -95,7 +95,7 @@ const SignUp = () => {
                             </div>
                             <div className="form-control">
                                 <label htmlFor='password' className="label">
-                                    <span className="label-text">Email</span>
+                                    <span className="label-text">Password</span>
                                 </label>
                                 <input
                                     type="password"
@@ -140,7 +140,7 @@ const SignUp = () => {
                                     googleSigninLoading
                                     :
                                     <button
-                                        onClick={() => signInWithGoogle()}
+                                        onClick={async () => await signInWithGoogle()}
                                         className="btn btn-outline btn-accent w-full">
                                         <BsGoogle className='text-2xl mr-2' />
                                         CONTINUE WITH GOOGLE

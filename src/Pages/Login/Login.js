@@ -22,7 +22,7 @@ const Login = () => {
     const location = useLocation();
 
     const from = location.state?.from?.pathname || "/";
-    if (user || gUser) {
+    if (token) {
         navigate(from, { replace: true });
     }
 
@@ -41,7 +41,7 @@ const Login = () => {
         }
     }
     if (token) {
-        console.log(user || gUser)
+        // console.log(user || gUser)
     }
     const onSubmit = data => {
         const { email, password } = data;
@@ -50,7 +50,7 @@ const Login = () => {
 
     return (
         <div>
-            <div className=" flex justify-center items-center h-screen">
+            <div className=" flex justify-center items-center min-h-screen">
                 <div className="card w-full max-w-[385px] shadow-2xl bg-base-100">
                     <div className="card-body">
                         <h2 className='text-center text-xl font-medium'>Login</h2>

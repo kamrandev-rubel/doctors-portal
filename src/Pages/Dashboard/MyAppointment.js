@@ -8,14 +8,19 @@ const MyAppointment = () => {
     const [user] = useAuthState(auth);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/booking?patient=${user?.email}`)
+        axios.get(`http://localhost:5000/booking?patient=${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `bearar ${localStorage.getItem('accessToken')}`
+            }
+        })
             .then((response) => {
                 setAppointment(response.data)
             })
     }, [user])
     return (
-        <div class="overflow-x-auto w-full">
-            <table class="table w-full">
+        <div className="overflow-x-auto w-full">
+            <table className="table w-full">
                 <thead>
                     <tr>
                         <th></th>

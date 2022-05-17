@@ -10,6 +10,7 @@ const Navbar = ({ theme, setTheme }) => {
     const navigate = useNavigate()
     const handleLogout = () => {
         signOut(auth);
+        localStorage.removeItem('accessToken')
     }
     const menuItems = <>
         <li><NavLink to='/' >Home</NavLink></li>
@@ -21,7 +22,7 @@ const Navbar = ({ theme, setTheme }) => {
             user && <li>
                 <NavLink to='/dashboard' className='hidden lg:block' >Dashboard</NavLink>
 
-                <label onClick={() => navigate('/dashboard')} htmlFor="dashboard-drawer" class="lg:hidden">Open drawer</label>
+                <label onClick={() => navigate('/dashboard')} htmlFor="dashboard-drawer" className="lg:hidden">Open drawer</label>
             </li>
         }
         {
