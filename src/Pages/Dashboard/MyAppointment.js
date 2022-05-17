@@ -10,12 +10,38 @@ const MyAppointment = () => {
     useEffect(() => {
         axios.get(`http://localhost:5000/booking?patient=${user?.email}`)
             .then((response) => {
-                console.log(response.data)
+                setAppointment(response.data)
             })
     }, [user])
     return (
-        <div>
-
+        <div class="overflow-x-auto w-full">
+            <table class="table w-full">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Treatment</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        appointment.map((booking, index) => {
+                            const { patientName, treatment, date, slot } = booking;
+                            return (
+                                <tr key={index}>
+                                    <th>{index + 1}</th>
+                                    <td>{patientName}</td>
+                                    <td>{treatment}</td>
+                                    <td>{date}</td>
+                                    <td>{slot}</td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
         </div>
     );
 };

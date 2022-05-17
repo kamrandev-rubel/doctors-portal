@@ -4,6 +4,7 @@ import { BsGoogle } from 'react-icons/bs';
 import { useSignInWithGoogle, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
+import useToken from '../../Hooks/useToken';
 
 const Login = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -14,6 +15,9 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+    const [token] = useToken(user || gUser)
+
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -36,7 +40,7 @@ const Login = () => {
             googleSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
         }
     }
-    if (user || gUser) {
+    if (token) {
         console.log(user || gUser)
     }
     const onSubmit = data => {

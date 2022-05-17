@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSignInWithGoogle, useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
-import { async } from '@firebase/util';
+import useToken from '../../Hooks/useToken';
 
 const SignUp = () => {
     const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
@@ -16,14 +16,10 @@ const SignUp = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
-
+    const [token] = useToken(user || gUser)
 
     let googleSigninLoading;
     let emailSigninLoading;
-    let signinError;
-    if (error || gError) {
-        signinError = <>{error.code || gError.code}</>
-    }
     if (gLoading || loading) {
         if (loading) {
             emailSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
@@ -32,8 +28,8 @@ const SignUp = () => {
             googleSigninLoading = <><button className="btn loading text-white w-full">Loading</button></>
         }
     }
-    if (user || gUser) {
-        console.log(user || gUser)
+    if (token) {
+        // console.log(user || gUser)
     }
     const onSubmit = async data => {
         const { name, email, password } = data;
@@ -120,7 +116,7 @@ const SignUp = () => {
                                 <label className="ml-2 font-medium">
                                     {errors.password?.type === 'required' && <span className='text-xs text-red-600'>{errors.password.message}</span>}
                                     {errors.password?.type === 'pattern' && <span className='text-xs text-red-600'>{errors.password.message}</span>}
-                                    <p className='text-red-600 text-xs'>{signinError}</p>
+                                    {/* <p className='text-red-600 text-xs'>{error.message || gError.message}</p> */}
                                 </label>
                             </div>
                             <div className="form-control mt-6">
@@ -128,7 +124,7 @@ const SignUp = () => {
                                     emailSigninLoading ?
                                         emailSigninLoading
                                         :
-                                        <input type="submit" className='btn btn-accent accent-content text-base-300 ' value="LOGIN" />
+                                        <input type="submit" className='btn btn-accent accent-content text-base-300 ' value="SIGN UP" />
                                 }
                             </div>
                         </form>
