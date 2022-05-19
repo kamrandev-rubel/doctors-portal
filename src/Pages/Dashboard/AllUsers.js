@@ -2,18 +2,25 @@ import axios from 'axios';
 import React from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
+import { toast } from 'react-toastify';
 
 const AllUsers = () => {
-    const { isLoading, error, data: users } = useQuery('repoData', () =>
-        axios.get('http://localhost:5000/users')
+    const { isLoading, error, data: users, refetch } = useQuery('users', () =>
+        axios.get('http://localhost:5000/users', {
+            method: 'GET',
+            headers: {
+                authorization: `bearar ${localStorage.getItem('accessToken')}`
+            }
+        })
     )
     if (isLoading) {
         return <Loading />
     }
-    console.log(users.data);
+    // console.log(users);
+
     return (
-        <div class="overflow-x-auto w-5/6">
-            <table class="table w-full">
+        <div className="overflow-x-auto w-5/6">
+            <table className="table w-full">
                 <thead>
                     <tr>
                         <th></th>
@@ -25,13 +32,55 @@ const AllUsers = () => {
                 <tbody>
                     {
                         users?.data.map((user, index) => {
-                            const { email } = user
+                            const { email, role } = user;
+
+                            const makeAdmin = () => {
+                                fetch(`http://localhost:5000/users/admin/${email}`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'authorization': `bearar ${localStorage.getItem('accessToken')}`
+                                    }
+                                })
+                                    .then(res => {
+                                        if (res.status === 403) {
+                                            return toast.error('Failed to make an admin')
+                                        }
+                                        return res.json()
+                                    })
+                                    .then(data => {
+                                        if (data.modifiedCount) {
+                                            refetch()
+                                            toast.success('Successfully made a admin')
+                                        }
+                                    })
+
+
+                                // axios.put(`http://localhost:5000/user/admin/${email}`, {
+                                //     method: 'PUT',
+                                //     headers: {
+                                //         authorization: `bearar ${localStorage.getItem('accessToken')}`
+                                //     }
+                                // })
+                                //     .then((response) => {
+                                //         // refetch()
+                                //         console.log(response);
+                                //     })
+
+                            }
                             return (
                                 <tr key={user._id}>
                                     <th>{index + 1}</th>
-                                    <td>C{email}</td>
-                                    <td><button class="btn btn-xs">Make Admin</button></td>
-                                    <td><button class="btn btn-xs">Remove User</button></td>
+                                    <td>{email}</td>
+                                    <td>
+                                        {
+                                            role === 'admin' ?
+                                                <button className="btn btn-xs bg-green-400 border-0 hover:bg-green-400 cursor-not-allowed">Admin</button>
+                                                :
+
+                                                <button onClick={makeAdmin} className="btn btn-xs">Make Admin</button>
+                                        }
+                                    </td>
+                                    <td><button className="btn btn-xs">Remove User</button></td>
                                 </tr>
                             )
                         })

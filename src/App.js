@@ -15,6 +15,7 @@ import MyAppointment from './Pages/Dashboard/MyAppointment';
 import MyReview from './Pages/Dashboard/MyReview';
 import MyHistory from './Pages/Dashboard/MyHistory';
 import AllUsers from './Pages/Dashboard/AllUsers';
+import RequireAdmin from './Pages/Login/RequireAdmin';
 
 function App() {
   const [theme, setTheme] = useState(false)
@@ -37,7 +38,11 @@ function App() {
           <Route index element={<MyAppointment />} />
           <Route path='/dashboard/myReview' element={<MyReview />} />
           <Route path='/dashboard/myHistory' element={<MyHistory />} />
-          <Route path='/dashboard/allUsers' element={<AllUsers />} />
+          <Route path='/dashboard/allUsers' element={
+            <RequireAdmin>
+              <AllUsers />
+            </RequireAdmin>
+          } />
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
