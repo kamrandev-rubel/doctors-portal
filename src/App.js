@@ -17,6 +17,7 @@ import MyHistory from './Pages/Dashboard/MyHistory';
 import AllUsers from './Pages/Dashboard/AllUsers';
 import RequireAdmin from './Pages/Login/RequireAdmin';
 import AddDoctor from './Pages/Dashboard/AddDoctor';
+import ManageDoctors from './Pages/Dashboard/ManageDoctors';
 
 function App() {
   const [theme, setTheme] = useState(false)
@@ -47,6 +48,11 @@ function App() {
           <Route path='addDoctor' element={
             <RequireAdmin>
               <AddDoctor />
+            </RequireAdmin>
+          } />
+          <Route path='manageDoctors' element={
+            <RequireAdmin>
+              <ManageDoctors />
             </RequireAdmin>
           } />
         </Route>

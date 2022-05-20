@@ -1,15 +1,65 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useQuery } from 'react-query';
+import { toast } from 'react-toastify';
+import Loading from '../Shared/Loading';
 
 
 const AddDoctor = () => {
+    const [value, setValue] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const { isLoading, error, data: specialty, refetch } = useQuery('specialty', () => axios.get('http://localhost:5000/services'))
+
+    if (isLoading) {
+        return <Loading />
+    }
+
     const onSubmit = data => {
-        console.log(data)
+        const image = data.image[0]
+        const formData = new FormData();
+        formData.append('image', image);
+
+        const imgbb_api_key = '5ec1cdd049438e9eec3e5d5118b46e5b';
+
+        fetch(`https://api.imgbb.com/1/upload?key=${imgbb_api_key}`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    const img = result.data.url
+                    const doctor = {
+                        fristName: data.firstName,
+                        lastName: data.lastName,
+                        email: data.email,
+                        specialty: data.specialty,
+                        img: img,
+                    }
+
+                    // send to doctor database
+                    fetch('http://localhost:5000/doctor', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `bearar ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(doctor)
+                    })
+                        .then(res => res.json())
+                        .then(inserted => {
+                            if (inserted.insertedId) {
+                                toast.success('Successfully added Doctor')
+                            }
+                        })
+                }
+            })
     };
     return (
         <div className='w-full '>
-            <h1 className='text-4xl'>hello doctors</h1>
+            <h1 className='text-4xl text-secondary text-center mb-4 font-medium'>Add new Doctors</h1>
             <div className='w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 mx-auto'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control flex">
@@ -95,25 +145,63 @@ const AddDoctor = () => {
                         <label htmlFor='specialty' className="label">
                             <span className="label-text">Specialty</span>
                         </label>
-                        <input
-                            type="text"
-                            id='specialty'
-                            placeholder="Specialty"
-                            className="input input-bordered"
+                        <select
+                            className="select select-bordered w-full"
                             {...register("specialty", {
                                 required: {
                                     value: true,
                                     message: 'Specialty is Required'
                                 },
                             })}
-                        />
+                        >
+
+                            <option
+                                selected
+                                disabled
+                                value='Select Specialty'
+                            >Select Specialty</option>
+                            {
+                                specialty?.data.map(special => {
+                                    return <>
+                                        <option
+                                            key={special._id}
+                                            defaultValue={special.name}
+                                        >{special.name}</option>
+                                    </>
+                                })
+                            }
+                        </select>
                         <label className="ml-2 font-medium">
                             {errors.specialty?.type === 'required' && <span className='text-xs text-red-600'>{errors.specialty.message}</span>}
                         </label>
                     </div>
+                    <div>
+                        <label htmlFor='photo' className="label">
+                            <span className="label-text">Upload Photo</span>
+                        </label>
+                        <input
+                            type="file"
+                            id='photo'
+                            className="input input-bordered w-full p-1.5 block w-full text-sm text-slate-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-violet-50 file:text-primary
+                            hover:file:bg-violet-100"
+                            {...register("image", {
+                                required: {
+                                    value: true,
+                                    message: 'Photo is Required'
+                                }
+                            })}
+                        />
+                        <label className="ml-2 font-medium">
+                            {errors.image?.type === 'required' && <span className='text-xs text-red-600'>{errors.image.message}</span>}
+                            {errors.image?.type === 'minLength' && <span className='text-xs text-red-600'>{errors.image.message}</span>}
+                        </label>
+                    </div>
                     <div className="form-control mt-6">
                         <input type="submit" value="ADD" className='btn btn-accent accent-content text-basxe-300 ' />
-
                     </div>
                 </form>
 
