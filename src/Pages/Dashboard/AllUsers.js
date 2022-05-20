@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const AllUsers = () => {
     const { isLoading, error, data: users, refetch } = useQuery('users', () =>
-        axios.get('http://localhost:5000/users', {
+        axios.get('https://doctor-portal-o.herokuapp.com/users', {
             method: 'GET',
             headers: {
                 authorization: `bearar ${localStorage.getItem('accessToken')}`
@@ -35,7 +35,7 @@ const AllUsers = () => {
                             const { email, role } = user;
 
                             const makeAdmin = () => {
-                                fetch(`http://localhost:5000/users/admin/${email}`, {
+                                fetch(`https://doctor-portal-o.herokuapp.com/users/admin/${email}`, {
                                     method: 'PUT',
                                     headers: {
                                         'authorization': `bearar ${localStorage.getItem('accessToken')}`
@@ -55,7 +55,7 @@ const AllUsers = () => {
                                     })
 
 
-                                // axios.put(`http://localhost:5000/user/admin/${email}`, {
+                                // axios.put(`https://doctor-portal-o.herokuapp.com/user/admin/${email}`, {
                                 //     method: 'PUT',
                                 //     headers: {
                                 //         authorization: `bearar ${localStorage.getItem('accessToken')}`

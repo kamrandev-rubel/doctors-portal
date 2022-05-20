@@ -11,7 +11,7 @@ const AvailableAppointment = ({ date }) => {
     const [treatment, setTreatment] = useState(null)
     const formattedDate = format(date, 'PP')
     // useEffect(() => {
-    //     axios.get(`http://localhost:5000/available?date=${formattedDate}`)
+    //     axios.get(`https://doctor-portal-o.herokuapp.com/available?date=${formattedDate}`)
     //         .then((response => {
     //             setServices(response.data)
     //         }))
@@ -19,7 +19,7 @@ const AvailableAppointment = ({ date }) => {
 
     const { data: services, isLoading, error, refetch } = useQuery(['available', formattedDate], () =>
 
-        fetch(`http://localhost:5000/available?date=${formattedDate}`).then(res =>
+        fetch(`https://doctor-portal-o.herokuapp.com/available?date=${formattedDate}`).then(res =>
             res.json()
         )
     )

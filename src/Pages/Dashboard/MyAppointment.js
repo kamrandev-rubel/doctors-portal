@@ -14,7 +14,7 @@ const MyAppointment = () => {
 
     useEffect(() => {
         setLoading(true)
-        axios.get(`http://localhost:5000/booking?patient=${user?.email}`, {
+        axios.get(`https://doctor-portal-o.herokuapp.com/booking?patient=${user?.email}`, {
             method: 'GET',
             headers: {
                 'authorization': `bearar ${localStorage.getItem('accessToken')}`

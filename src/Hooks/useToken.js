@@ -7,7 +7,7 @@ const useToken = (user) => {
     useEffect(() => {
         const email = user?.user?.email;
         if (email) {
-            axios.put(`http://localhost:5000/user/${email}`, { email: email })
+            axios.put(`https://doctor-portal-o.herokuapp.com/user/${email}`, { email: email })
                 .then((response) => {
                     const data = response.data;
                     if (data) {

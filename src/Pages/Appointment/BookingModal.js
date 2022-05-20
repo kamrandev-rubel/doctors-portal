@@ -22,7 +22,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
             patientEmail: user.email,
         }
 
-        axios.post('http://localhost:5000/bookings', booking)
+        axios.post('https://doctor-portal-o.herokuapp.com/bookings', booking)
             .then((response) => {
                 const data = response.data
                 if (data.success) {
