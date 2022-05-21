@@ -1,19 +1,33 @@
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 
 const ManageDoctors = () => {
+    const navigate = useNavigate()
     const { data: doctors, isLoading, error, refetch } = useQuery('doctors', () => axios.get('http://localhost:5000/doctors', {
         method: 'GET',
         headers: {
             authorization: `bearar ${localStorage.getItem('accessToken')}`
         }
-    }))
+    })
+        .catch((error) => {
+            if (error.response.status === 401 || error.response.status === 403) {
+                signOut(auth)
+                localStorage.removeItem('accessToken')
+                return navigate('/login')
+            }
+        })
+    )
+
     if (isLoading) {
         return <Loading />
     }
-    console.log(doctors);
+
     return (
         <div>
             <h2 className='text-4xl text-secondary text-center mb-4 font-medium'>Manage Doctors</h2>
@@ -23,27 +37,36 @@ const ManageDoctors = () => {
                         <thead>
                             <tr>
                                 <th>
-                                    {/* <label>
-                                        <input type="checkbox" class="checkbox" />
-                                    </label> */}
                                 </th>
-                                <th>Name</th>
-                                <th>Specialty</th>
-                                <th>Doctor Email</th>
-                                <th>Remove Doctor</th>
+                                <th className='text-center'>Name</th>
+                                <th className='text-center'>Specialty</th>
+                                <th className='text-center'>Doctor Email</th>
+                                <th className='text-center'>Remove Doctor</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 doctors?.data.map((doctor, index) => {
                                     const { firstName, lastName, specialty, email, img } = doctor;
-                                    console.log(doctor);
+                                    console.log(firstName, 'hello', lastName);
+                                    const handleDeleteDoctor = (email) => {
+                                        fetch(`http://localhost:5000/doctor/${email}`, {
+                                            method: "DELETE",
+                                            headers: {
+                                                authorization: `bearar ${localStorage.getItem('accessToken')}`
+                                            }
+                                        })
+                                            .then(res => res.json())
+                                            .then(result => {
+                                                console.log(result);
+                                                toast.success(`Doctor: ${firstName} ${lastName} is Deleted`)
+                                                refetch()
+                                            })
+                                    }
                                     return (
                                         <tr key={doctor._id}>
                                             <th>
-                                                <label>
-                                                    <input type="checkbox" class="checkbox" />
-                                                </label>
+                                                {index + 1}
                                             </th>
                                             <td>
                                                 <div class="flex items-center space-x-3">
@@ -64,23 +87,13 @@ const ManageDoctors = () => {
                                             </td>
                                             <td>{email}</td>
                                             <th>
-                                                <button class="btn btn-tiny btn-xs bg-error hover:bg-red-500 border-0">details</button>
+                                                <input type='button' value='Delete' id='delete' onClick={() => handleDeleteDoctor(email)} class="btn btn-tiny btn-xs bg-error hover:bg-red-500 border-0 mx-auto block" />
                                             </th>
                                         </tr>
                                     )
                                 })
                             }
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>Name</th>
-                                <th>Specialty</th>
-                                <th>Doctor Email</th>
-                                <th>Remove Doctor</th>
-                            </tr>
-                        </tfoot>
-
                     </table>
                 </div>
             </div>

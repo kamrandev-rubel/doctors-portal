@@ -3,8 +3,12 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import auth from '../../firebase.init';
 
 const AllUsers = () => {
+    const navigate = useNavigate()
     const { isLoading, error, data: users, refetch } = useQuery('users', () =>
         axios.get('https://doctor-portal-o.herokuapp.com/users', {
             method: 'GET',
@@ -12,6 +16,13 @@ const AllUsers = () => {
                 authorization: `bearar ${localStorage.getItem('accessToken')}`
             }
         })
+            .catch((error) => {
+                if (error.response.status === 401 || error.response.status === 403) {
+                    signOut(auth)
+                    localStorage.removeItem('accessToken')
+                    return navigate('/login')
+                }
+            })
     )
     if (isLoading) {
         return <Loading />

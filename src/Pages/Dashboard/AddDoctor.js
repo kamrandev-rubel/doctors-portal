@@ -8,7 +8,7 @@ import Loading from '../Shared/Loading';
 
 const AddDoctor = () => {
     const [value, setValue] = useState('')
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const { isLoading, error, data: specialty, refetch } = useQuery('specialty', () => axios.get('http://localhost:5000/services'))
 
@@ -17,6 +17,7 @@ const AddDoctor = () => {
     }
 
     const onSubmit = data => {
+        console.log(data);
         const image = data.image[0]
         const formData = new FormData();
         formData.append('image', image);
@@ -32,7 +33,7 @@ const AddDoctor = () => {
                 if (result.success) {
                     const img = result.data.url
                     const doctor = {
-                        fristName: data.firstName,
+                        firstName: data.firstName,
                         lastName: data.lastName,
                         email: data.email,
                         specialty: data.specialty,
@@ -52,6 +53,7 @@ const AddDoctor = () => {
                         .then(inserted => {
                             if (inserted.insertedId) {
                                 toast.success('Successfully added Doctor')
+                                reset()
                             }
                         })
                 }
@@ -79,7 +81,7 @@ const AddDoctor = () => {
                                             message: 'First Name is Required'
                                         },
                                         minLength: {
-                                            value: 4,
+                                            value: 3,
                                             message: 'Minimum 4 characters'
                                         }
                                     })}
@@ -94,7 +96,7 @@ const AddDoctor = () => {
                                     <span className="label-text">Last Name</span>
                                 </label>
                                 <input
-                                    type="name"
+                                    type="text"
                                     id='name'
                                     placeholder="Last Name"
                                     className="input input-bordered w-full"
@@ -104,7 +106,7 @@ const AddDoctor = () => {
                                             message: 'Last Name is Required'
                                         },
                                         minLength: {
-                                            value: 4,
+                                            value: 3,
                                             message: 'Minimum 4 characters'
                                         }
                                     })}
