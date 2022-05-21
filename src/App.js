@@ -17,7 +17,7 @@ import MyHistory from './Pages/Dashboard/MyHistory';
 import AllUsers from './Pages/Dashboard/AllUsers';
 import RequireAdmin from './Pages/Login/RequireAdmin';
 import AddDoctor from './Pages/Dashboard/AddDoctor';
-import ManageDoctors from './Pages/Dashboard/ManageDoctors';
+import ManageDoctors from './Pages/Dashboard/ManageDoctors/ManageDoctors';
 
 function App() {
   const [theme, setTheme] = useState(false)
@@ -25,36 +25,17 @@ function App() {
   return (
     <div data-theme={`${theme ? 'dark' : 'light'}`}>
       <Navbar theme={theme} setTheme={setTheme} />
+      {/* {window.location.pathname !== "/login" ? <Navbar /> : null} */}
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/appointment' element={
-          <PrivetRoute>
-            <Appointment />
-          </PrivetRoute>
-        } />
-        <Route path='/dashboard' element={
-          <PrivetRoute>
-            <Dashboard />
-          </PrivetRoute>
-        } >
+        <Route path='/appointment' element={<PrivetRoute><Appointment /></PrivetRoute>} />
+        <Route path='/dashboard' element={<PrivetRoute><Dashboard /></PrivetRoute>} >
           <Route index element={<MyAppointment />} />
           <Route path='myReview' element={<MyReview />} />
           <Route path='myHistory' element={<MyHistory />} />
-          <Route path='allUsers' element={
-            <RequireAdmin>
-              <AllUsers />
-            </RequireAdmin>
-          } />
-          <Route path='addDoctor' element={
-            <RequireAdmin>
-              <AddDoctor />
-            </RequireAdmin>
-          } />
-          <Route path='manageDoctors' element={
-            <RequireAdmin>
-              <ManageDoctors />
-            </RequireAdmin>
-          } />
+          <Route path='allUsers' element={<RequireAdmin><AllUsers /></RequireAdmin>} />
+          <Route path='addDoctor' element={<RequireAdmin><AddDoctor /></RequireAdmin>} />
+          <Route path='manageDoctors' element={<RequireAdmin><ManageDoctors /></RequireAdmin>} />
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />

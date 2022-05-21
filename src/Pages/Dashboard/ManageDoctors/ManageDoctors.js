@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { signOut } from 'firebase/auth';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import auth from '../../firebase.init';
-import Loading from '../Shared/Loading';
+import auth from '../../../firebase.init';
+import Loading from '../../Shared/Loading';
+import DeletingModal from './DeletingModal';
 
 const ManageDoctors = () => {
+    const [deletingDoctor, setDeletingDoctor] = useState(null)
     const navigate = useNavigate()
     const { data: doctors, isLoading, error, refetch } = useQuery('doctors', () => axios.get('http://localhost:5000/doctors', {
         method: 'GET',
@@ -48,21 +50,7 @@ const ManageDoctors = () => {
                             {
                                 doctors?.data.map((doctor, index) => {
                                     const { firstName, lastName, specialty, email, img } = doctor;
-                                    console.log(firstName, 'hello', lastName);
-                                    const handleDeleteDoctor = (email) => {
-                                        fetch(`http://localhost:5000/doctor/${email}`, {
-                                            method: "DELETE",
-                                            headers: {
-                                                authorization: `bearar ${localStorage.getItem('accessToken')}`
-                                            }
-                                        })
-                                            .then(res => res.json())
-                                            .then(result => {
-                                                console.log(result);
-                                                toast.success(`Doctor: ${firstName} ${lastName} is Deleted`)
-                                                refetch()
-                                            })
-                                    }
+
                                     return (
                                         <tr key={doctor._id}>
                                             <th>
@@ -87,7 +75,7 @@ const ManageDoctors = () => {
                                             </td>
                                             <td>{email}</td>
                                             <th>
-                                                <input type='button' value='Delete' id='delete' onClick={() => handleDeleteDoctor(email)} class="btn btn-tiny btn-xs bg-error hover:bg-red-500 border-0 mx-auto block" />
+                                                <label onClick={() => setDeletingDoctor(doctor)} htmlFor="delete-doctor-modal" className="btn btn-tiny btn-xs bg-error hover:bg-red-500 border-0 mx-auto p-0  items-center flex">Delete</label>
                                             </th>
                                         </tr>
                                     )
@@ -97,6 +85,11 @@ const ManageDoctors = () => {
                     </table>
                 </div>
             </div>
+            {deletingDoctor && <DeletingModal
+                deletingDoctor={deletingDoctor}
+                refetch={refetch}
+                setDeletingDoctor={setDeletingDoctor}
+            />}
         </div>
     );
 };
