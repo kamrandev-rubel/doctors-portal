@@ -10,7 +10,7 @@ const AddDoctor = () => {
     const [value, setValue] = useState('')
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const { isLoading, error, data: specialty, refetch } = useQuery('specialty', () => axios.get('http://localhost:5000/services'))
+    const { isLoading, error, data: specialty, refetch } = useQuery('specialty', () => axios.get('https://doctor-portal-o.herokuapp.com/services'))
 
     if (isLoading) {
         return <Loading />
@@ -41,7 +41,7 @@ const AddDoctor = () => {
                     }
 
                     // send to doctor database
-                    fetch('http://localhost:5000/doctor', {
+                    fetch('https://doctor-portal-o.herokuapp.com/doctor', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

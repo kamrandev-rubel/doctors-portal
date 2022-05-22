@@ -11,7 +11,7 @@ import DeletingModal from './DeletingModal';
 const ManageDoctors = () => {
     const [deletingDoctor, setDeletingDoctor] = useState(null)
     const navigate = useNavigate()
-    const { data: doctors, isLoading, error, refetch } = useQuery('doctors', () => axios.get('http://localhost:5000/doctors', {
+    const { data: doctors, isLoading, error, refetch } = useQuery('doctors', () => axios.get('https://doctor-portal-o.herokuapp.com/doctors', {
         method: 'GET',
         headers: {
             authorization: `bearar ${localStorage.getItem('accessToken')}`
@@ -34,8 +34,8 @@ const ManageDoctors = () => {
         <div>
             <h2 className='text-4xl text-secondary text-center mb-4 font-medium'>Manage Doctors</h2>
             <div>
-                <div class="overflow-x-auto w-full">
-                    <table class="table w-full">
+                <div className="overflow-x-auto w-full">
+                    <table className="table w-full">
                         <thead>
                             <tr>
                                 <th>
@@ -57,21 +57,20 @@ const ManageDoctors = () => {
                                                 {index + 1}
                                             </th>
                                             <td>
-                                                <div class="flex items-center space-x-3">
-                                                    <div class="avatar">
-                                                        <div class="mask mask-squircle w-12 h-12">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="avatar">
+                                                        <div className="mask mask-squircle w-12 h-12">
                                                             <img src={img} alt="doctor images" />
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <div class="font-bold">{firstName} {lastName}</div>
-                                                        {/* <div class="text-sm opacity-50">United States</div> */}
+                                                        <div className="font-bold">{firstName} {lastName}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 {/* <br> */}
-                                                <span class="badge badge-ghost badge-sm">{specialty}</span>
+                                                <span className="badge badge-ghost badge-sm">{specialty}</span>
                                             </td>
                                             <td>{email}</td>
                                             <th>

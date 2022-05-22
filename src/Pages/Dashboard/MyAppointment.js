@@ -2,7 +2,7 @@ import axios from 'axios';
 import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 
@@ -45,12 +45,13 @@ const MyAppointment = () => {
                                     <th>Treatment</th>
                                     <th>Date</th>
                                     <th>Time</th>
+                                    <th>PAY</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                     appointment.map((booking, index) => {
-                                        const { patientName, treatment, date, slot } = booking;
+                                        const { patientName, treatment, date, slot, price, paid, _id } = booking;
                                         return (
                                             <tr key={index}>
                                                 <th>{index + 1}</th>
@@ -58,6 +59,10 @@ const MyAppointment = () => {
                                                 <td>{treatment}</td>
                                                 <td>{date}</td>
                                                 <td>{slot}</td>
+                                                <td>
+                                                    {(price && !paid) && <Link to={`/dashboard/payment/${_id}`}><button className='btn btn-primary'>PAY</button></Link>}
+                                                    {(price && paid) && <button className='btn btn-success'>PAID</button>}
+                                                </td>
                                             </tr>
                                         )
                                     })

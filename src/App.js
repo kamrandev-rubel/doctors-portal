@@ -18,6 +18,7 @@ import AllUsers from './Pages/Dashboard/AllUsers';
 import RequireAdmin from './Pages/Login/RequireAdmin';
 import AddDoctor from './Pages/Dashboard/AddDoctor';
 import ManageDoctors from './Pages/Dashboard/ManageDoctors/ManageDoctors';
+import Payment from './Pages/Dashboard/Payment';
 
 function App() {
   const [theme, setTheme] = useState(false)
@@ -33,6 +34,7 @@ function App() {
           <Route index element={<MyAppointment />} />
           <Route path='myReview' element={<MyReview />} />
           <Route path='myHistory' element={<MyHistory />} />
+          <Route path='payment/:id' element={<Payment />} />
           <Route path='allUsers' element={<RequireAdmin><AllUsers /></RequireAdmin>} />
           <Route path='addDoctor' element={<RequireAdmin><AddDoctor /></RequireAdmin>} />
           <Route path='manageDoctors' element={<RequireAdmin><ManageDoctors /></RequireAdmin>} />

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
     const [user] = useAuthState(auth)
-    const { _id, name, slots } = treatment;
+    const { _id, name, slots, price } = treatment;
     const formattedDate = format(date, 'PP')
     const handleBooking = (event) => {
         event.preventDefault();
@@ -15,6 +15,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
         const booking = {
             treatmentId: _id,
             treatment: name,
+            price: price,
             date: formattedDate,
             slot: slot,
             patientName: event.target.name.value,

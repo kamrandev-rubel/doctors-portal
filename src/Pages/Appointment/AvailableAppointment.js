@@ -1,21 +1,12 @@
 import { format } from 'date-fns';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import BookingModal from './BookingModal';
 import { useQuery } from 'react-query'
 import Loading from '../Shared/Loading';
-import { async } from '@firebase/util';
 
 const AvailableAppointment = ({ date }) => {
-    // const [services, setServices] = useState([]);
     const [treatment, setTreatment] = useState(null)
     const formattedDate = format(date, 'PP')
-    // useEffect(() => {
-    //     axios.get(`https://doctor-portal-o.herokuapp.com/available?date=${formattedDate}`)
-    //         .then((response => {
-    //             setServices(response.data)
-    //         }))
-    // }, [formattedDate])
 
     const { data: services, isLoading, error, refetch } = useQuery(['available', formattedDate], () =>
 
