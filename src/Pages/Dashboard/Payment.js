@@ -38,10 +38,10 @@ const Payment = () => {
                     <p>Please Pay <span className='font-medium'>${booking.price}</span></p>
                 </div>
             </div>
-            <div className="card  bg-slate-200">
+            <div className="card  bg-slate-100">
                 <div className="card-body">
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm />
+                        <CheckoutForm booking={booking} />
                     </Elements>
                 </div>
             </div>

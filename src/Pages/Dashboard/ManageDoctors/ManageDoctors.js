@@ -3,7 +3,6 @@ import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading';
 import DeletingModal from './DeletingModal';
@@ -74,7 +73,7 @@ const ManageDoctors = () => {
                                             </td>
                                             <td>{email}</td>
                                             <th>
-                                                <label onClick={() => setDeletingDoctor(doctor)} htmlFor="delete-doctor-modal" className="btn btn-tiny btn-xs bg-error hover:bg-red-500 border-0 mx-auto p-0  items-center flex">Delete</label>
+                                                <label onClick={() => setDeletingDoctor(doctors)} htmlFor="delete-doctor-modal" className="btn btn-tiny btn-xs bg-error hover:bg-red-500 border-0 mx-auto p-0  items-center flex">Delete</label>
                                             </th>
                                         </tr>
                                     )
